@@ -11,11 +11,20 @@
 <body>
     <div id="container">
         <div class="page-header" >
-            <h2>Lern 2 Kode</h2>
+            <h2 style="margin-left:2%;">
+                <span class="label label-primary">Learn How to code - By JustDevIt</span>
+                <button type="button" class="btn btn-default" style="float:right;margin-right: 3%;">Account</button>
+                <a href="#openModalHelp" >
+                    <!-- <div class="btn-group" role="group" style="float:right;margin-right: 3%;" > -->
+                        <button type="button" class="btn btn-primary" style="float:right;" >Help</button>
+                        <!-- <button type="button" class="btn btn-default">Account</button> -->
+                    <!-- </div> -->
+                </a>
+            </h2>
         </div>
 
         <div id="SidePanel">
-            Side Panel
+            <p style="color: #ffffff;font-size:xx-large;"> > </p>
         </div>
 
         <div id="GameArea">
@@ -24,13 +33,30 @@
 
         <div id="ConsoleArea">
             <div class="ConsolePane">
-                objectives
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Objectives</div>
+                    <div class="panel-body">
+                        1. Objective
+                    </div>
+                </div>
             </div>
             <div class="ConsolePane">
-                console
+                Console  >_
             </div>
         </div>
+
+        <div id="openModalHelp" class="modalDialog">
+            <div>
+                <a href="#close" title="Close" class="close">X</a>
+                <h2>Help</h2>
+                <p>This is a some text.</p>
+                <p>You can write something here.</p>
+            </div>
+        </div>
+
     </div>
+
+
 
 </body>
 </html>

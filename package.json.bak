@@ -2,7 +2,7 @@
   "name": "hackathon-game",
   "version": "0.0.1",
   "description": "A simple game that allows users to type javascript code changing the game.",
-  "main": "app.js",
+  "main": "index.js",
   "authors": "Scott Colegrove, Alex Hester, Neal Hamilton, and David Ragsdale",
   "license": "Apache",
   "private": true,
@@ -10,17 +10,4 @@
     "socket.io": "1.2.1",
     "express": "3.4.8"
   }
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/djragsdale/hackathon.git"
-  },
-  "author": "Alex Hester",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/djragsdale/hackathon/issues"
-  },
-  "homepage": "https://github.com/djragsdale/hackathon"
 }

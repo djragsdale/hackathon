@@ -11,7 +11,8 @@
     $('#game').attr("height", canvasHeight);
     $('#game').attr("width", canvasWidth);
 
-    var canvas = $("#game")[0].getContext('2d');
+    var canvas = document.getElementById('game');
+    var context = canvas.getContext('2d');
 
     function init() {
         $.ajax({

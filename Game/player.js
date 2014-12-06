@@ -3,14 +3,12 @@
  */
 
 
-/**
- * MUST HAVE GLOBALLY:
- * -- context
- * -- spritesheet
- * --
- * */
+
 
 function Player (x, y, w, h) {
+
+
+
 
     this.x = x;
     this.y = y;
@@ -21,6 +19,7 @@ function Player (x, y, w, h) {
     this.speed = 2;
     this.moves = 0;
     this.holding = new Object(0, 0, 0, 0, 0);
+    this.currentLevel = 1;
 
     this.move = function (value) { // accesor for user to craete move
         this.moves += value;
@@ -56,4 +55,6 @@ function Player (x, y, w, h) {
         context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY ,this.width, this.height);
     };
 }
+
+var player = new Player(0,0,50,100);
 

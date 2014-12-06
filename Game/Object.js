@@ -5,8 +5,6 @@
 
 function Object (x, y, w, h, type) {
 
-    var context = canvas.getContext('2d')
-
     this.speed = 2;
     // spritesheet coords
     this.x = x;

@@ -7,9 +7,6 @@
 
 function Player (x, y, w, h) {
 
-
-
-
     this.x = x;
     this.y = y;
     this.width = w;
@@ -18,8 +15,8 @@ function Player (x, y, w, h) {
     this.drawY = 0;
     this.speed = 2;
     this.moves = 0;
-    this.holding = new Object(0, 0, 0, 0, 0);
-    this.currentLevel = 1;
+    this.holding = new gameObject(0, 0, 0, 0, 0);
+    this.currentLevel = "testLevel1.json";
 
     this.move = function (value) { // accesor for user to craete move
         this.moves += value;
@@ -58,3 +55,4 @@ function Player (x, y, w, h) {
 
 var player = new Player(0,0,50,100);
 
+player.draw();

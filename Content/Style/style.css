@@ -53,8 +53,20 @@ html, body, #container {
 
 }
 
+#SidePanelContent {
+    width:90%;
+    visibility: hidden;
+
+    -webkit-transition-delay: .2s; /* Safari */
+    transition-delay: .2s;
+}
+
 #SidePanel:hover {
     width:10%;
+}
+
+#SidePanel:hover > #SidePanelContent {
+    visibility: visible;
 }
 
 #SidePanel:hover + #GameArea  {
@@ -118,6 +130,8 @@ html, body, #container {
 }
 
 .close:hover { background: #00d9ff; }
+
+
 
 
 

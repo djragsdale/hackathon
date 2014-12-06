@@ -2095,7 +2095,7 @@ select[multiple].input-lg {
 }
 @media (min-width: 768px) {
   .form-horizontal .form-group-lg .control-label {
-    padding-top: 14.3px;
+    padding-top: 14px;
   }
 }
 @media (min-width: 768px) {

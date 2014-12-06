@@ -70,11 +70,11 @@ html, body, #container {
 }
 
 #SidePanel:hover + #GameArea  {
-    width:85%;
+    width:87%;
 }
 
 #SidePanel:hover ~ #ConsoleArea {
-    width: 85%;
+    width: 87%;
 }
 
 .modalDialog {

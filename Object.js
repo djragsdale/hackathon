@@ -21,13 +21,12 @@ function Object (x, y, w, h, type) {
     this.draw = function() {
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY, this.width, this.height);
-    }
+    };
 
     this.setPosition = function (x, y) { // primarily used for player holding object
         this.drawX = x;
         this.drawY = y;
-    }
-
+    };
 
 }
 

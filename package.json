@@ -1,0 +1,13 @@
+{
+  "name": "hackathon-game",
+  "version": "0.0.1",
+  "description": "A simple game that allows users to type javascript code changing the game.",
+  "main": "index.js",
+  "authors": "Scott Colegrove, Alex Hester, Neal Hamilton, and David Ragsdale",
+  "license": "Apache",
+  "private": true,
+  "dependencies": {
+    "socket.io": "1.2.1",
+    "express": "3.4.8"
+  }
+}

@@ -6,6 +6,12 @@
       "objectType": "2",
       "x": 50,
       "y": 100
+    },
+    {
+      "conditionId": 1,
+      "objectType": "1",
+      "x": 100,
+      "y": 100
     }
   ],
   "gravity": 1000,
@@ -13,6 +19,15 @@
   "height": 600,
   "baseLine": 0,
   "playerStart": { "x": 10, "y": 600 },
-  "winConditions": {}
+  "conditions": [
+    {
+      "conditionType": "win",
+      "when": "end",
+      "objects": {
+        "0": "0",
+        "1": "1"
+      }
+    }
+  ]
 }
 

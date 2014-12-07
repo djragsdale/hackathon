@@ -6,7 +6,7 @@
 
 function GameObject (x, y, type) {
 
-
+    this.type = type;
     this.speed = 2;
     // spritesheet coords
     this.x = 26 * (type - 1);

@@ -7,6 +7,7 @@
 
 function Player (x, y, w, h) {
 
+    this.type = 0;
     this.x = x;
     this.y = y;
     this.width = w;

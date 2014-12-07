@@ -16,23 +16,12 @@ function Player (x, y, w, h) {
     this.speed = 2;
     this.moves = 0;
     this.holding = {};
-    this.grabbedObj = false;
     this.isGravity = true;
     this.currentLevel = "testLevel1.json";
     this.jumpTicks = 0;
 
-    this.steps = 0;
-    this.walking = false;
-    this.forward = true;
-
     this.move = function (value) { // accessor for user to create move
         this.moves += value;
-        if (value > 0) {
-            this.forward = true;
-        }
-        else {
-            this.forward = false;
-        }
     };
 
     this.jump = function () { // accessor for user to create jump
@@ -43,20 +32,13 @@ function Player (x, y, w, h) {
 
     this.update = function () { // called from game loop
 
-        if (this.moves != 0) {
-            this.walking = true;
-        } else {
-            this.steps = 0;
-            this.walking = false;
-        }
-
         if (this.moves > 0) { // moving to the right
             this.drawX += this.speed;
             this.moves--;
             // this.holding.setPosition(this.drawX+=this.speed, this.height/2);
         }
         if (this.moves < 0) { // moving to the left
-            this.drawX -= this.speed;
+            this.drawX -= 5;
             this.moves++;
             //this.holding.setPosition(this.drawY-=this.speed, this.height/2);
         }
@@ -72,17 +54,17 @@ function Player (x, y, w, h) {
 
     };
 
-    this.grab = function () {
-        this.grabbedObj = true;
+    this.grab = function (object) {
+        if (object.isMovable) {
+            this.holding = object;
+            if ( (this.x + this.width) < object.x ) { // player is left of object
+                this.holding.setPosition(this.drawX + 10, this.height / 2);
+            }
+            else { // player is right of the object
+                this.holding.setPosition(this.drawX - 10, this.height / 2);
+            }
+        }
     };
-
-    this.drop = function () {
-        this.grabbedObj = false;
-    };
-
-    this.setHolding = function(obj) {
-        this.holding = obj;
-    }
 
     this.getMoves =
         function () {
@@ -94,28 +76,6 @@ function Player (x, y, w, h) {
         //context.clearRect(this.x, this.y, this.width, this.height);
         //context.fillStyle = '#000000';
         //context.fillRect(this.drawX, this.drawY, this.width, this.height);
-
-        if ( this.forward ) {
-            if (this.steps % 10 == 0 && this.walking) {
-                context.drawImage(spritesheet, 52, this.y, this.width + 4, this.height, this.drawX, this.drawY, this.width + 4, this.height);
-                this.steps++;
-            }
-            else {
-                context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY, this.width, this.height);
-                this.steps++;
-            }
-        }
-        else {
-            if (this.steps % 10 == 0 && this.walking) {
-                context.drawImage(spritesheet, 80, this.y, this.width + 4, this.height, this.drawX, this.drawY, this.width + 4, this.height);
-                this.steps++;
-            }
-            else {
-                context.drawImage(spritesheet, 24, this.y, this.width + 4, this.height, this.drawX, this.drawY, this.width + 4, this.height);
-                this.steps++;
-            }
-        }
-
-
+        context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY ,this.width, this.height);
     };
 }

@@ -25,7 +25,7 @@ function init() {
         for(var i = 0; i < level.objects.length; i ++) {
             var go = level.objects[i];
             levelObjectStore.push(
-                new GameObject(go.x, go.y, go.objectType, go.moveable)
+                new GameObject(go.x, go.y, go.objectType)
             );
         }
         console.log(levelObjectStore);
@@ -60,22 +60,9 @@ function update() {
     for(var i = 1; i < levelObjectStore.length; i++) {
         var o = levelObjectStore[i]; // temp storage for game object
 
-        if (o.held == false && o.isMovable == false &&p.drawX + p.width > o.drawX && p.drawX < o.drawX + o.width) { // player has passed left edge of object
+        if (p.drawX + p.width > o.drawX && p.drawX < o.drawX + o.width) { // player has passed left edge of object
             p.drawY = o.drawY - p.height;
         }
-
-        if (o.isMovable && p.drawX + p.width > o.drawX - 5 && p.drawX + p.width < o.drawX + o.width + 5) {
-            if ( p.grabbedObj ) {
-                p.setHolding(levelObjectStore[i]);
-                o.held = true;
-                o.drawY = canvas.height - (p.height);
-                o.drawX = p.drawX + 7;
-            }
-        }
-        else {
-            p.grabbedObj = false;
-        }
-
         p = levelObjectStore[0];
     }
 }
@@ -90,8 +77,6 @@ function gravity() {
                 levelObjectStore[i].drawY += fallDis;
             }
         }
-
-
     }
 }
 

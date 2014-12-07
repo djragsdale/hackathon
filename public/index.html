@@ -1,27 +1,120 @@
-﻿<!doctype html>
-<html lang="en">
-<head>
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
     <meta charset="UTF-8">
-    <title>Canvas Javascript Sandbox</title>
-    <script src="/Ensure.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hackathon Game</title>
+
+    <link rel="icon" href="../../favicon.ico">
+    <link href="Content/Style/bootstrap.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="Content/Style/style.css">
+    <link rel="stylesheet" type="text/css" href="Content/Style/animate.css">
+
+
+
 </head>
 <body>
-<h1>Canvas Javascript Sandbox</h1>
-<div id="jsSandbox" class="hidden">
+    <div id="container">
+        <div class="page-header" >
+            <h2 style="margin-left:2%;">
+                <span class="label label-primary">Learn How to code</span>
+                <a href="#openModalAccount">
+                    <button type="button" class="btn btn-default" style="float:right;margin-right: 3%;">Account</button>
+                </a>
+                <a href="#openModalHelp" >
+                        <button type="button" class="btn btn-primary" style="float:right;" >Help</button>
+                </a>
+            </h2>
+        </div>
 
-</div>
-<canvas id="sandboxCanvas">
-</canvas>
-<iframe id="sandbox" src="/sandbox"></iframe>
+        <div id="SidePanel">
+            <p style="color: #ffffff;font-size:xx-large;"> > </p>
+            <div id="SidePanelContent">
+                <div class="panel panel-info">
+                    <div class="panel-heading">User</div>
+                    <div class="panel-body" id="UserPanelText" style="word-wrap: break-word;">
+                        Not Logged In
+                    </div>
+                    <div class="panel-heading">Current Level</div>
+                    <div class="panel-body" id="pnlCurrentLevel" style="word-wrap: break-word;">
 
-<!-- Text area -->
-<textarea id="txtScript" rows="4" cols="50">Placeholder...</textarea>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-default" onclick="LogOut()">Log Out</button>
+            </div>
+        </div>
 
-<input type="button" id="submitButton" value="Submit"/>
+        <div id="GameArea">
+            <iframe id="sandbox" src="/sandbox" style="display: block; margin: 0 auto 0 auto; width: 1040px; height: 220px;"></iframe>
+        </div>
 
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/main.js"></script>
+        <div id="ConsoleArea">
+            <div class="ConsolePane">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Objectives</div>
+                    <div class="panel-body">
+                        1. Objective
+                    </div>
+                </div>
+            </div>
+            <div class="ConsolePane">
+                <div id="ConsoleExpand">
+                    <p style="color: #ffffff;font-size:large;margin-left: 2%;"> Methods </p>
+                    <ul id="functionList" class="list-group" style="width:95%;margin-left: 2%">
+                        <li class="list-group-item">item</li>
+                        <li class="list-group-item">item</li>
+                        <li class="list-group-item">item</li>
+                        <li class="list-group-item">item</li>
+                        <li class="list-group-item">item</li>
+                    </ul>
+                    <br /><input type="button" id="submitButton" value="Submit" />
+                </div>
+
+                <textarea id="txtScript" style="height: 100%; width: 350px;">Placeholder...</textarea>
+            </div>
+        </div>
+
+        <div id="openModalHelp" class="modalDialog">
+            <div>
+                <a href="#close" title="Close" class="close">X</a>
+                <h2>Help / About</h2>
+                <p>This game is designed to help teach programming basics.</p>
+                <p style="text-decoration: underline;font-weight: bold;">How to play:</p>
+                <p>Interact with the code window to try and get the character to complete his objective.</p>
+                <p style="text-decoration: underline;font-weight: bold;">About</p>
+                <p>Website created by the JustDevIt team for the koding.com hackathon</p>
+            </div>
+        </div>
+
+        <div id="openModalAccount" class="modalDialog">
+            <div>
+                <a href="#close" title="Close" class="close">X</a>
+                <h2>Account</h2>
+                <p>Login Or Create an account</p>
+                <br>
+                <input type="text" id="txtUserID">
+                Email
+                <br><br>
+                <input type="password" id="txtPass" >
+                Password
+                <br><br>
+                <button type="button" class="btn btn-primary" id="btnLogin" onclick="LogIn(txtUserID.value, txtPass.value)" >Log in</button>
+                <button type="button" class="btn btn-primary" id="btnNewAccount" onclick="CreateNewUser(txtUserID.value, txtPass.value)">Create new account</button>
+                <br>
+                <a onclick="SendResetEmail(txtUserID.value)">Forgot your password? Send reset email</a>
+                <br><br>
+                <div id="LogInAlert" class="alert alert-danger" role="alert" style="visibility: hidden;"></div>
+            </div>
+        </div>
+	</div>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
+    <script src="Scripts/account.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/main.js"></script>
+
 </body>
 </html>

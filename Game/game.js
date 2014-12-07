@@ -79,8 +79,13 @@ function checkCollisions(i) {
 
 function gravity() {
     for(var i = 0; i < levelObjectStore.length; i++) {
-        if(levelObjectStore[i].drawY + levelObjectStore[i].height < canvasHeight) {
-            levelObjectStore[i].drawY += (level.gravity * .01);
+        if(levelObjectStore[i].drawY + levelObjectStore[i].height < canvas.height) {
+            var fallDis = Math.pow((level.gravity * .7)/(canvas.height - levelObjectStore[i].drawY), 2);
+            if(levelObjectStore[i].drawY + levelObjectStore[i].height + fallDis > canvas.height) {
+                levelObjectStore[i].drawY = canvas.height - levelObjectStore[i].height;
+            } else {
+                levelObjectStore[i].drawY += fallDis;
+            }
         }
     }
 }

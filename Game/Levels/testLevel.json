@@ -8,7 +8,7 @@
       "y": 100
     }
   ],
-  "gravity": 500,
+  "gravity": 1000,
   "width": 2000,
   "height": 600,
   "baseLine": 0,

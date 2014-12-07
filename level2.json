@@ -23,9 +23,17 @@
 	  "y": 160
 	},
 	{
+	  "conditionTag": "1",
 	  "objectType": "1",
 	  "x": 165,
 	  "y": 137
+	},
+	{
+	  // Not actually in this level, just included for a reference
+	  "conditionTag": "2",
+	  "objectType": "3", // the dog Scott put in level 4?
+	  "x": 188,
+	  "y": 100
 	}
   ],
   "gravity": 1000,
@@ -33,5 +41,23 @@
   "height": 600,
   "baseLine": 0,
   "playerStart": { "x": 10, "y": 600 },
-  "winConditions": {}
+  "winConditions": [
+    {
+	  "conditionType": "collision",
+	  "when": "end",
+	  "objects": {
+	    "0": "0", // conditionTag 0 is always the player
+		"1": "1" // conditionTag 1 is the ball
+	  }
+	},
+	{
+	  // This condition would be used 
+	  "conditionType": "avoid",
+	  "when": "anytime", // can't happen at all during the game
+	  "objects": {
+	    "0": "0", // The player
+		"1": "2" // The dog
+	  }
+	}
+  ]
 }

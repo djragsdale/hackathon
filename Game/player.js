@@ -12,10 +12,10 @@ function Player (x, y, w, h) {
     this.width = w;
     this.height = h;
     this.drawX = 250;
-    this.drawY = 250;
+    this.drawY = 150;
     this.speed = 2;
     this.moves = 0;
-    this.holding = new GameObject(0, 0, 0, 0, 0);
+    this.holding = {};
     this.currentLevel = "testLevel1.json";
 
     this.move = function (value) { // accesor for user to craete move
@@ -54,7 +54,7 @@ function Player (x, y, w, h) {
 
     this.draw = function () {
         //console.log(spritesheet);
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        //context.clearRect(0, 0, canvas.width, canvas.height);
         //context.fillStyle = '#000000';
         //context.fillRect(0,0,20,20);
         context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY ,this.width, this.height);

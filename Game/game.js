@@ -1,16 +1,16 @@
 
 var canvasWidth = 800;
 var canvasHeight = 480;
-var fps = 30;
+var fps = 1;
 var level = {};
 var levelObjectStore = [];
-var player = new Player(0,0,23,150);
-console.log(player);
+var player = new Player(0,0,23,60);
+levelObjectStore.push(player); // this needs to be removed
 
 //Set canvas dimensions in dom
 $('#game').attr("height", canvasHeight);
 $('#game').attr("width", canvasWidth);
-/*
+
 function init() {
     $.ajax({
         url: "Game/Levels/testLevel.json",
@@ -19,40 +19,38 @@ function init() {
     }).done(function(data) {
         level = data;
         //initialize level objects into levelObjectsStore
-        for(var i; i < level.objects.length; i ++) {
+        for(var i = 0; i < level.objects.length; i ++) {
             var go = level.objects[i];
-            levelObjectStore.push({ id: i, obj: new gameObject(go.objectType, go.x, go.y, (go.image) ? go.image : ""), changed: true });
+            console.log(go);
+            levelObjectStore.push(
+                new GameObject(go.x, go.y, go.objectType)
+            );
         }
-
-        levelObjectStore.push(player);
-        console.log(levelObjectStore);
-        console.log(levelObjectStore[0]);
     }).fail(function() {
         alert('Failed to load level!');
     });
 }
 
 init();
-*/
-player.draw();
 
-/*
+
 setInterval(function() {
     update();
 
-    draw();
+    drawObjects();
 }, 1000 / fps);
-*/
+
+
 function update() {
 
 }
 
-function draw() {
-    for (var i = 0; i < levelObjectStore.length; i ++) {
-        if(levelObjectStore[i].changed) {
-            console.log(levelObjectStore[i]);
-            levelObjectStore.draw();
-        }
+function drawObjects() {
+    console.log(levelObjectStore.length);
+    player.draw();
+    for (var i = 1; i < levelObjectStore.length; i++) {
+        console.log(levelObjectStore[i]);
+        levelObjectStore[i].draw();
     }
 }
 

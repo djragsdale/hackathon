@@ -4,24 +4,26 @@
 
 
 
-function GameObject (x, y, w, h, type) {
-
+function GameObject (x, y, type) {
 
 
     this.speed = 2;
     // spritesheet coords
-    this.x = x;
-    this.y = y;
-    this.width = w;
-    this.height = h;
+    this.x = 65 * (type - 1);
+    this.y = 65;
+    this.width = 65;
+    this.height = 70;
     // location to be drawn
-    this.drawX = 0;
-    this.drawY = 0;
+    this.drawX = x;
+    this.drawY = y;
     this.isMovable = false;
 
     this.draw = function() {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY, this.width, this.height);
+        //console.log(spritesheet);
+        //context.clearRect(this.drawX, this.drawY, this.width, this.height);
+        //context.fillStyle = '#000000';
+        //context.fillRect(0,0,20,20);
+        context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY ,this.width, this.height);
     };
 
     this.setPosition = function (x, y) { // primarily used for player holding object

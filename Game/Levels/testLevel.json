@@ -3,13 +3,7 @@
   "name": "Test Level",
   "objects": [
     {
-      "objectType": "background",
-      "x": 0,
-      "y": 0,
-      "image": "testLevel1_background.jpg"
-    },
-    {
-      "objectType": "obstacle",
+      "objectType": "2",
       "x": "50",
       "y": "100"
     }
@@ -19,3 +13,4 @@
   "height": 600,
   "winConditions": {}
 }
+

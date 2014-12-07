@@ -1,5 +1,16 @@
 var ref = new Firebase('https://glaring-fire-2226.firebaseio.com/');
 
+//check if user is logged in
+var LblEmail = document.getElementById("UserPanelText");
+var authData = ref.getAuth();
+if (authData) {
+    // user authenticated with Firebase
+     LblEmail.innerHTML = authData.password.email;
+} else {
+    // user is logged out
+    LblEmail.innerHTML = "Not Logged In";
+}
+
 function CreateNewUser(email, password) {
     var txtAlert = document.getElementById("LogInAlert");
 
@@ -32,13 +43,13 @@ function LogIn(email, password) {
         email    : email,
         password : password
     }, function(error, authData) {
+        remember: "sessionOnly"
         if (error === null) {
             // user authenticated with Firebase
             txtAlert.className = "alert alert-success"
             txtAlert.innerHTML = "Success! You are logged in."
             txtAlert.style.visibility = "visible"
-
-            txtUserInfo.innerHTML = "Email: " + email
+            txtUserInfo.innerHTML = email
         } else {
             txtAlert.className = "alert alert-danger"
             txtAlert.innerHTML = "Error Authenticating User"
@@ -47,6 +58,7 @@ function LogIn(email, password) {
             txtUserInfo.innerHTML = "Not Logged In"
         }
     });
+
 }
 
 function SendResetEmail(email) {
@@ -66,3 +78,11 @@ function SendResetEmail(email) {
         }
     });
 }
+
+function LogOut() {
+    ref.unauth();
+
+    var txtUser = document.getElementById("UserPanelText").innerHTML = "Not Logged In";
+}
+
+

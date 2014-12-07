@@ -18,7 +18,7 @@
     <div id="container">
         <div class="page-header" >
             <h2 style="margin-left:2%;">
-                <span class="label label-primary">Learn How to code - By JustDevIt</span>
+                <span class="label label-primary">Learn How to code</span>
                 <a href="#openModalAccount">
                     <button type="button" class="btn btn-default" style="float:right;margin-right: 3%;">Account</button>
                 </a>
@@ -31,12 +31,17 @@
         <div id="SidePanel">
             <p style="color: #ffffff;font-size:xx-large;"> > </p>
             <div id="SidePanelContent">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Current User Information:</div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">User</div>
                     <div class="panel-body" id="UserPanelText" style="word-wrap: break-word;">
                         Not Logged In
                     </div>
+                    <div class="panel-heading">Current Level</div>
+                    <div class="panel-body" id="pnlCurrentLevel" style="word-wrap: break-word;">
+
+                    </div>
                 </div>
+                <button type="button" class="btn btn-default" onclick="LogOut()">Log Out</button>
             </div>
         </div>
 
@@ -61,9 +66,12 @@
         <div id="openModalHelp" class="modalDialog">
             <div>
                 <a href="#close" title="Close" class="close">X</a>
-                <h2>Help</h2>
-                <p>This is a some text.</p>
-                <p>You can write something here.</p>
+                <h2>Help / About</h2>
+                <p>This game is designed to help teach programming basics.</p>
+                <p style="text-decoration: underline;font-weight: bold;">How to play:</p>
+                <p>Interact with the code window to try and get the character to complete his objective.</p>
+                <p style="text-decoration: underline;font-weight: bold;">About</p>
+                <p>Website created by the JustDevIt team for the koding.com hackathon</p>
             </div>
         </div>
 

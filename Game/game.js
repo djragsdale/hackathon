@@ -1,10 +1,12 @@
 
 var canvasWidth = 800;
 var canvasHeight = 480;
-var fps = 1;
+var fps = 30;
 var level = {};
 var levelObjectStore = [];
 var player = new Player(0,0,23,60);
+
+player.move(50);
 levelObjectStore.push(player); // this needs to be removed
 
 //Set canvas dimensions in dom
@@ -21,7 +23,6 @@ function init() {
         //initialize level objects into levelObjectsStore
         for(var i = 0; i < level.objects.length; i ++) {
             var go = level.objects[i];
-            console.log(go);
             levelObjectStore.push(
                 new GameObject(go.x, go.y, go.objectType)
             );
@@ -41,20 +42,20 @@ init();
 
 setInterval(function() {
     update();
-
     drawObjects();
+    //collision();
 }, 1000 / fps);
 
 
 function update() {
+    player.update();
+    console.log(player.getMoves());
 
 }
 
 function drawObjects() {
-    console.log(levelObjectStore.length);
     player.draw();
     for (var i = 1; i < levelObjectStore.length; i++) {
-        console.log(levelObjectStore[i]);
         levelObjectStore[i].draw();
     }
 }

@@ -23,15 +23,16 @@ function Player (x, y, w, h) {
     };
 
     this.update = function () { // called from game loop
-        if (this.moves > 1) { // moving to the right
+
+        if (this.moves > 0) { // moving to the right
             this.drawX += this.speed;
             this.moves--;
-            this.holding.setPosition(this.drawX+=this.speed, this.height/2);
+           // this.holding.setPosition(this.drawX+=this.speed, this.height/2);
         }
-        else { // moving to the left
+        if (this.moves < 0) { // moving to the left
             this.drawX -= this.speed;
             this.moves++;
-            this.holding.setPosition(this.drawY-=this.speed, this.height/2);
+            //this.holding.setPosition(this.drawY-=this.speed, this.height/2);
         }
     };
 

@@ -18,7 +18,7 @@ function Player (x, y, w, h) {
     this.holding = {};
     this.currentLevel = "testLevel1.json";
 
-    this.move = function (value) { // accesor for user to craete move
+    this.move = function (value) { // accessor for user to create move
         this.moves += value;
     };
 
@@ -34,6 +34,7 @@ function Player (x, y, w, h) {
             this.moves++;
             //this.holding.setPosition(this.drawY-=this.speed, this.height/2);
         }
+
     };
 
     this.grab = function (object) {
@@ -55,9 +56,9 @@ function Player (x, y, w, h) {
 
     this.draw = function () {
         //console.log(spritesheet);
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        //context.clearRect(this.x, this.y, this.width, this.height);
         //context.fillStyle = '#000000';
-        //context.fillRect(0,0,20,20);
+        //context.fillRect(this.drawX, this.drawY, this.width, this.height);
         context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY ,this.width, this.height);
     };
 }

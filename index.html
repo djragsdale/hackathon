@@ -41,7 +41,6 @@
         </div>
 
         <div id="GameArea">
-            Game area
             <canvas id="game"></canvas>
         </div>
 
@@ -98,7 +97,9 @@
         var spritesheet = new Image();
         spritesheet.src = "./img/spritesheet.png";
 
-
+        function clamp(x, min, max) {
+            return x < min ? min : (x > max ? max : x);
+        }
     </script>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="Game/gameObject.js"></script>

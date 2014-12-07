@@ -8,9 +8,11 @@
       "y": 100
     }
   ],
-  "gravity": 10,
-  "width": 200,
+  "gravity": 500,
+  "width": 2000,
   "height": 600,
+  "baseLine": 0,
+  "playerStart": { "x": 10, "y": 600 },
   "winConditions": {}
 }
 

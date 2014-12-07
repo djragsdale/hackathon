@@ -57,17 +57,17 @@ app.use(express.static(__dirname + '/public'));
 var usernames = {};
 var numUsers = 0;
 
-var htmlTop = "<html><head></head><body>";
-htmlTop += "<span id=\"alert0\">nothing</span>";
-htmlTop += "<span id=\"alert1\">nothing</span>";
-htmlTop += "<span id=\"alert2\">nothing</span>";
-htmlTop += "<span id=\"alert3\">nothing</span>";
-htmlTop += "<canvas id=\"game\"></canvas>";
-htmlTop += "<script src=\"https://code.jquery.com/jquery-1.10.2.min.js\"></script>";
-htmlTop += "<script>";
+var sandboxTop = "<html><head></head><body>";
+sandboxTop += "<span id=\"alert1\">nothing</span>";
+sandboxTop += "<span id=\"alert2\">nothing</span>";
+sandboxTop += "<span id=\"alert3\">nothing</span>";
+sandboxTop += "<span id=\"alert4\">nothing</span>";
+sandboxTop += "<canvas id=\"game\"></canvas>";
+sandboxTop += "<script src=\"https://code.jquery.com/jquery-1.10.2.min.js\"></script>";
+sandboxTop += "<script>";
 
-var htmlBottom = "</script>";
-htmlBottom += "</body></html>";
+var sandboxBottom = "</script>";
+sandboxBottom += "</body></html>";
 
 io.on('connection', function (socket) {
     var addedUser = false;
@@ -83,8 +83,8 @@ io.on('connection', function (socket) {
         numUsers++;
         console.log("User " + username + " joined. There are now " + numUsers + " connected.");
 
-        var html = htmlTop;
-        html += htmlBottom;
+        var html = sandboxTop;
+        html += sandboxBottom;
         var fs = require('fs');
         fs.writeFile('public/sandbox/' + socket.username + '.html', html);
         if (DEBUG) { console.log('Code submitted to public/sandbox/' + socket.username + '.html'); }
@@ -96,9 +96,10 @@ io.on('connection', function (socket) {
 
     // when the client emits 'submit code', this listens and executes
     socket.on('submit code', function (data) {
-        var html = htmlTop;
+        var html = sandboxTop;
         html += data;
-        html += htmlBottom;
+
+        html += sandboxBottom;
 
         //attach script to socket
         //socket.script = data;
@@ -115,5 +116,15 @@ io.on('connection', function (socket) {
     // when the user disconnects.. perform this
     socket.on('disconnect', function () {
         if (DEBUG) { console.log('User disconnected.'); }
+        if (DEBUG) { console.log('Deleting sandbox for user ' + socket.username + '.') }
+        var newPath = __dirname + '/public/sandbox/' + socket.username + '.html';
+        var newPath = 'public/sandbox/' + socket.username + '.html';
+        var fs = require('fs');
+        fs.unlink(newPath, function (err) {
+            if (err) {
+                console.log('!!! Error deleting ' + newPath + ' sandbox for user ' + socket.username + '.');
+                console.log('!!! ' + err);
+            }
+        });
     });
 });

@@ -4,7 +4,7 @@
 
 
 
-function GameObject (x, y, type) {
+function GameObject (x, y, type, move) {
 
 
     this.speed = 2;
@@ -16,7 +16,8 @@ function GameObject (x, y, type) {
     // location to be drawn
     this.drawX = x;
     this.drawY = y;
-    this.isMovable = false;
+    this.isMovable = move;
+    this.held = false;
 
     this.draw = function() {
         //console.log(spritesheet);

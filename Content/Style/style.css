@@ -58,6 +58,13 @@ html, body, #container {
 
 }
 
+#ConsoleExpand {
+    width: 30%;
+    height: 100%;
+    float: left;
+    background-color: #428bca;
+}
+
 #SidePanelContent {
     width:90%;
     visibility: hidden;

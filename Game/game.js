@@ -64,12 +64,12 @@ function update() {
             p.drawY = o.drawY - p.height;
         }
 
-        if (o.isMovable && p.drawX + p.width > o.drawX - 15 && p.drawX + p.width < o.drawX + o.width + 15) {
+        if (o.isMovable && p.drawX + p.width > o.drawX - 5 && p.drawX + p.width < o.drawX + o.width + 5) {
             if ( p.grabbedObj ) {
                 p.setHolding(levelObjectStore[i]);
                 o.held = true;
-                o.drawY = canvas.height - p.height;
-                o.drawX = p.drawX + 5;
+                o.drawY = canvas.height - (p.height);
+                o.drawX = p.drawX + 7;
             }
         }
         else {

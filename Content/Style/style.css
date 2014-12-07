@@ -3,6 +3,10 @@ html, body, #container {
     width:100%;
 }
 
+#game {
+    z-index: 99999;
+}
+
 #GameArea {
     height: 40%;
     width: 95%;

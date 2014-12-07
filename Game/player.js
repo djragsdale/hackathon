@@ -7,12 +7,6 @@
 
 function Player (x, y, w, h) {
 
-
-    var frames = [
-        new Image(spritesheet.getImageData(0,0,50,10)),
-
-    ];
-
     this.x = x;
     this.y = y;
     this.width = w;
@@ -59,7 +53,10 @@ function Player (x, y, w, h) {
     };
 
     this.draw = function () {
+        //console.log(spritesheet);
         context.clearRect(0, 0, canvas.width, canvas.height);
+        //context.fillStyle = '#000000';
+        //context.fillRect(0,0,20,20);
         context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY ,this.width, this.height);
     };
 }

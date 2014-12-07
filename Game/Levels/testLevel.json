@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "name": "Test Level",
+  "objects": [
+    {
+      "objectType": "2",
+      "x": 50,
+      "y": 100
+    }
+  ],
+  "gravity": 10,
+  "width": 200,
+  "height": 600,
+  "winConditions": {}
+}
+

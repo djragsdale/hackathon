@@ -16,12 +16,11 @@
         <div class="page-header" >
             <h2 style="margin-left:2%;">
                 <span class="label label-primary">Learn How to code - By JustDevIt</span>
-                <button type="button" class="btn btn-default" style="float:right;margin-right: 3%;">Account</button>
+                <a href="#openModalAccount">
+                    <button type="button" class="btn btn-default" style="float:right;margin-right: 3%;">Account</button>
+                </a>
                 <a href="#openModalHelp" >
-                    <!-- <div class="btn-group" role="group" style="float:right;margin-right: 3%;" > -->
                         <button type="button" class="btn btn-primary" style="float:right;" >Help</button>
-                        <!-- <button type="button" class="btn btn-default">Account</button> -->
-                    <!-- </div> -->
                 </a>
             </h2>
         </div>
@@ -29,12 +28,10 @@
         <div id="SidePanel">
             <p style="color: #ffffff;font-size:xx-large;"> > </p>
             <div id="SidePanelContent">
-                <a href="https://twitter.com/intent/tweet?button_hashtag=Hackathon&text=I%20just%20tried%20the%20game%20by%20JustDevIt" class="twitter-hashtag-button">Tweet #Hackathon</a>
-                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
                 <div class="panel panel-default">
-                    <div class="panel-heading">Information</div>
-                    <div class="panel-body">
-                        information
+                    <div class="panel-heading">Current User Information:</div>
+                    <div class="panel-body" id="UserPanelText" style="word-wrap: break-word;">
+                        Not Logged In
                     </div>
                 </div>
             </div>
@@ -67,9 +64,31 @@
             </div>
         </div>
 
+        <div id="openModalAccount" class="modalDialog">
+            <div>
+                <a href="#close" title="Close" class="close">X</a>
+                <h2>Account</h2>
+                <p>Login Or Create an account</p>
+                <br>
+                <input type="text" id="txtUserID">
+                Email
+                <br><br>
+                <input type="password" id="txtPass" >
+                Password
+                <br><br>
+                <button type="button" class="btn btn-primary" id="btnLogin" onclick="LogIn(txtUserID.value, txtPass.value)" >Log in</button>
+                <button type="button" class="btn btn-primary" id="btnNewAccount" onclick="CreateNewUser(txtUserID.value, txtPass.value)">Create new account</button>
+                <br>
+                <a onclick="SendResetEmail(txtUserID.value)">Forgot your password? Send reset email</a>
+                <br><br>
+                <div id="LogInAlert" class="alert alert-danger" role="alert" style="visibility: hidden;"></div>
+            </div>
+        </div>
+
     </div>
 
-
+    <script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
+    <script src="Scripts/account.js"></script>
 
 </body>
 </html>

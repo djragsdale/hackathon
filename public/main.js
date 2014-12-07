@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Created by drags on 12/6/2014.
  */
 $(function() {
@@ -40,6 +40,7 @@ $(function() {
         if (myScript) {
             if (DEBUG) { console.log('myScript == true') }
             socket.emit('submit code', myScript);
+            //addScript(myScript);
         }
     }
 
@@ -47,11 +48,10 @@ $(function() {
     function addScript (data) {
         if (DEBUG) { console.log('addScript()') }
         // Add script into page
-        var testScript = "<script>alert('hello');";
-        testScript += "<";
-        testScript += "/script>";
+        //var testScript = '<script>function runMain() { console.log(\'hello, world\'); }</script>';
 
-        $script.appendChild(testScript);
+        //$script.appendChild(testScript);
+        //runMain();
     }
 
     // Changes canvas and stuff
@@ -75,13 +75,44 @@ $(function() {
         if (DEBUG) { console.log('submitButton.click()') }
         submitScript();
     });
+    
 
     // Socket events
+    
+    socket.emit('join');
+    
+    socket.on('joined', function (data) {
+        alert('You have joined!');
+        $('#sandbox').attr('src', 'sandbox/' + data.file);
+        $txtScript = $('#txtScript');
+    });
 
     // Whenever the server emits 'sandbox', add script to sandbox
-    socket.on('sandbox', function (data) {
+    socket.on('sandboxed', function (data) {
         // insert code into sandbox
-        addScript(data);
+        //addScript(data);
+        console.log("sandboxed message received");
+        //$('#sandbox')[0].contentWindow.location.reload(true);
+        document.getElementById('sandbox').src = document.getElementById('sandbox').src;
+        //var myMessage = function (testText) {
+        //    console.log(testText);
+        //}
+        //ensure({ js: "customjs.js?n=" + Math.random() }, function () {
+        //    console.log('customjs ensured.');
+        //});
+        // Perform $.getScript call to app route
+        //$.getScript("customjs.js", function (data, textStatus, jqxhr) {
+        //    console.log('Script has been gat.');
+        //    runMain();
+        //});
+        //$.ajax({
+        //    type: "GET",
+        //    url: "customjs.js",
+        //    dataType: "script"
+        //}).done(function (data) {
+        //    console.log('Got the file!');
+        //    console.log(data);
+        //});
     });
 
 });

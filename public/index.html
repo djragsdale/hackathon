@@ -1,21 +1,24 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Canvas Javascript Sandbox</title>
+    <script src="/Ensure.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <h1>Canvas Javascript Sandbox</h1>
-<div class="hidden">
+<div id="jsSandbox" class="hidden">
+
 </div>
 <canvas id="sandboxCanvas">
 </canvas>
+<iframe id="sandbox" src="/sandbox"></iframe>
 
 <!-- Text area -->
-<textarea rows="4" cols="50">Placeholder...</textarea>
+<textarea id="txtScript" rows="4" cols="50">Placeholder...</textarea>
 
-<button id="submitButton">Submit</button>
+<input type="button" id="submitButton" value="Submit"/>
 
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>

@@ -9,6 +9,7 @@ html, body, #container {
 
 #GameArea {
     height: 40%;
+    min-height: 150px;
     width: 95%;
     float:left;
     border: 2px solid black;

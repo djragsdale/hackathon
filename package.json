@@ -2,12 +2,13 @@
   "name": "hackathon",
   "version": "0.0.1",
   "description": "hackathon",
-  "main": "index.js",
-  "authors": "Scott Colegrove, Alex Hester, Neal Hamilton, and David Ragsdale",
-  "license": "Apache",
-  "private": true,
+  "main": "app.js",
+  "author": {
+    "name": "drags",
+    "email": ""
+  },
   "dependencies": {
-    "express": "^3.4.8",
+    "express": "^3.18.4",
     "socket.io": "^1.2.1"
   }
 }

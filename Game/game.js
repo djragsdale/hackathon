@@ -33,6 +33,11 @@ function init() {
 
 init();
 
+/*setTimeout(function() {
+    console.log(levelObjectStore[1]);
+    levelObjectStore[1].draw();
+
+},5000);*/
 
 setInterval(function() {
     update();

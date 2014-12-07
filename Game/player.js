@@ -16,23 +16,40 @@ function Player (x, y, w, h) {
     this.speed = 2;
     this.moves = 0;
     this.holding = {};
+    this.isGravity = true;
     this.currentLevel = "testLevel1.json";
+    this.jumpTicks = 0;
 
     this.move = function (value) { // accessor for user to create move
         this.moves += value;
     };
+
+    this.jump = function () { // accessor for user to create jump
+        this.jumpTicks = 7;
+        this.isGravity = false;
+    };
+
 
     this.update = function () { // called from game loop
 
         if (this.moves > 0) { // moving to the right
             this.drawX += this.speed;
             this.moves--;
-           // this.holding.setPosition(this.drawX+=this.speed, this.height/2);
+            // this.holding.setPosition(this.drawX+=this.speed, this.height/2);
         }
         if (this.moves < 0) { // moving to the left
-            this.drawX -= this.speed;
+            this.drawX -= 5;
             this.moves++;
             //this.holding.setPosition(this.drawY-=this.speed, this.height/2);
+        }
+
+        if (this.jumpTicks > 0 ) {
+            var jumpDis = Math.pow((level.gravity * .3)/(canvas.height - this.drawY), 2);
+            this.drawY -= jumpDis;
+            this.jumpTicks--;
+        }
+        else {
+            this.isGravity = true;
         }
 
     };
@@ -51,8 +68,8 @@ function Player (x, y, w, h) {
 
     this.getMoves =
         function () {
-      return this.moves;
-    };
+            return this.moves;
+        };
 
     this.draw = function () {
         //console.log(spritesheet);

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Hackathon Game</title>
+
+    <link href="Content/Style/bootstrap.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="Content/Style/style.css">
+    <link rel="stylesheet" type="text/css" href="Content/Style/animate.css">
+</head>
+<body>
+    <div id="container">
+        <div class="page-header" >
+            <h2 style="margin-left:2%;">
+                <span class="label label-primary">Learn How to code - By JustDevIt</span>
+                <button type="button" class="btn btn-default" style="float:right;margin-right: 3%;">Account</button>
+                <a href="#openModalHelp" >
+                    <!-- <div class="btn-group" role="group" style="float:right;margin-right: 3%;" > -->
+                        <button type="button" class="btn btn-primary" style="float:right;" >Help</button>
+                        <!-- <button type="button" class="btn btn-default">Account</button> -->
+                    <!-- </div> -->
+                </a>
+            </h2>
+        </div>
+
+        <div id="SidePanel">
+            <p style="color: #ffffff;font-size:xx-large;"> > </p>
+            <div id="SidePanelContent">
+                <a href="https://twitter.com/intent/tweet?button_hashtag=Hackathon&text=I%20just%20tried%20the%20game%20by%20JustDevIt" class="twitter-hashtag-button">Tweet #Hackathon</a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Information</div>
+                    <div class="panel-body">
+                        information
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="GameArea">
+            Game area
+        </div>
+
+        <div id="ConsoleArea">
+            <div class="ConsolePane">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Objectives</div>
+                    <div class="panel-body">
+                        1. Objective
+                    </div>
+                </div>
+            </div>
+            <div class="ConsolePane">
+                Console  >_
+            </div>
+        </div>
+
+        <div id="openModalHelp" class="modalDialog">
+            <div>
+                <a href="#close" title="Close" class="close">X</a>
+                <h2>Help</h2>
+                <p>This is a some text.</p>
+                <p>You can write something here.</p>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+</html>

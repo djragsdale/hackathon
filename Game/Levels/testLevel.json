@@ -3,9 +3,10 @@
   "name": "Test Level",
   "objects": [
     {
-      "objectType": "2",
+      "objectType": "1",
       "x": 50,
-      "y": 100
+      "y": 100,
+      "moveable": true
     }
   ],
   "gravity": 1000,

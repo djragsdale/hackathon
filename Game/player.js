@@ -16,6 +16,7 @@ function Player (x, y, w, h) {
     this.speed = 2;
     this.moves = 0;
     this.holding = {};
+    this.grabbedObj = false;
     this.isGravity = true;
     this.currentLevel = "testLevel1.json";
     this.jumpTicks = 0;
@@ -54,17 +55,17 @@ function Player (x, y, w, h) {
 
     };
 
-    this.grab = function (object) {
-        if (object.isMovable) {
-            this.holding = object;
-            if ( (this.x + this.width) < object.x ) { // player is left of object
-                this.holding.setPosition(this.drawX + 10, this.height / 2);
-            }
-            else { // player is right of the object
-                this.holding.setPosition(this.drawX - 10, this.height / 2);
-            }
-        }
+    this.grab = function () {
+        this.grabbedObj = true;
     };
+
+    this.drop = function () {
+        this.grabbedObj = false;
+    };
+
+    this.setHolding = function(obj) {
+        this.holding = obj;
+    }
 
     this.getMoves =
         function () {

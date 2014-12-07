@@ -1,4 +1,3 @@
-
 var canvasWidth = $('#GameArea').width();
 var canvasHeight = $('#GameArea').height();
 var fps = 30;
@@ -25,7 +24,7 @@ function init() {
         for(var i = 0; i < level.objects.length; i ++) {
             var go = level.objects[i];
             levelObjectStore.push(
-                new GameObject(go.x, go.y, go.objectType)
+                new GameObject(go.x, go.y, go.objectType, go.moveable)
             );
         }
         console.log(levelObjectStore);
@@ -37,11 +36,12 @@ function init() {
 init();
 
 /*setTimeout(function() {
-    console.log(levelObjectStore[1]);
-    levelObjectStore[1].draw();
+ console.log(levelObjectStore[1]);
+ levelObjectStore[1].draw();
 
-},5000);*/
+ },5000);*/
 var p = {}; // used in update to store player
+var o = {};
 setInterval(function() {
     update();
     drawObjects();
@@ -58,11 +58,30 @@ function update() {
         p = levelObjectStore[0];
     }
     for(var i = 1; i < levelObjectStore.length; i++) {
-        var o = levelObjectStore[i]; // temp storage for game object
+        o = levelObjectStore[i]; // temp storage for game object
 
-        if (p.drawX + p.width > o.drawX && p.drawX < o.drawX + o.width) { // player has passed left edge of object
+        if (o.held == false && o.isMovable == false &&p.drawX + p.width > o.drawX && p.drawX < o.drawX + o.width) { // player has passed left edge of object
             p.drawY = o.drawY - p.height;
         }
+
+        if (o.isMovable && p.drawX + p.width > o.drawX - 15 && p.drawX + p.width < o.drawX + o.width + 15) {
+            if ( p.grabbedObj ) {
+                p.setHolding(o);
+                o.held = true;
+                o.drawY = canvas.height - p.height;
+                o.drawX = p.drawX + 5;
+            }
+        }
+        else {
+            p.grabbedObj = false;
+        }
+
+        if (o.held) {
+            o.drawX = p.drawX;
+        }
+
+
+
         p = levelObjectStore[0];
     }
 }
@@ -77,11 +96,12 @@ function gravity() {
                 levelObjectStore[i].drawY += fallDis;
             }
         }
+
+
     }
 }
 
 function drawObjects() {
-    //levelObjectStore[0].draw();
     context.clearRect(0,0, canvas.width, canvas.height);
     for (var i = 0; i < levelObjectStore.length; i++) {
         levelObjectStore[i].draw();

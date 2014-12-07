@@ -4,19 +4,12 @@ var canvasHeight = 480;
 var fps = 30;
 var level = {};
 var levelObjectStore = [];
-
-
-var spritesheet = new Image();
-spritesheet.src = "./img/spritesheet.png";
+var player = new Player();
+console.log(player);
 
 //Set canvas dimensions in dom
 $('#game').attr("height", canvasHeight);
 $('#game').attr("width", canvasWidth);
-
-var canvas = document.getElementById('game');
-var context = canvas.getContext('2d');
-
-context.drawImage();
 
 function init() {
     $.ajax({
@@ -30,6 +23,8 @@ function init() {
             var go = level.objects[i];
             levelObjectStore.push({ id: i, obj: new gameObject(go.objectType, go.x, go.y, (go.image) ? go.image : ""), changed: true });
         }
+
+        levelObjectStore.push(player);
     }).fail(function() {
         alert('Failed to load level!');
     });
@@ -37,20 +32,16 @@ function init() {
 
 init();
 
+
 setInterval(function() {
     update();
+
     draw();
 }, 1000 / fps);
 
 function update() {
-    (player.moveDistance != 0) ? player.x += (player.moveDistance > 0) ? -1 : 1 : false ;
-    if(player.moveDistance != 0) {
-        player.x += player.speed;
-        player.moveDistance += (player.moverDistance > 0) ? -1 : 1;
-    }
-    if (player.jumpHeight > 0) {
-        player.y += 5;
-        player.jumpHeight--;
+    if (player.getMoves() != 0) {
+        player.update();
     }
 }
 

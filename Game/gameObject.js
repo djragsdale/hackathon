@@ -3,7 +3,10 @@
  */
 
 
+
 function GameObject (x, y, w, h, type) {
+
+
 
     this.speed = 2;
     // spritesheet coords

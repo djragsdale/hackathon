@@ -7,15 +7,21 @@
 
 function Player (x, y, w, h) {
 
+
+    var frames = [
+        new Image(spritesheet.getImageData(0,0,50,10)),
+
+    ];
+
     this.x = x;
     this.y = y;
     this.width = w;
     this.height = h;
-    this.drawX = 0;
-    this.drawY = 0;
+    this.drawX = 250;
+    this.drawY = 250;
     this.speed = 2;
     this.moves = 0;
-    this.holding = new gameObject(0, 0, 0, 0, 0);
+    this.holding = new GameObject(0, 0, 0, 0, 0);
     this.currentLevel = "testLevel1.json";
 
     this.move = function (value) { // accesor for user to craete move
@@ -47,12 +53,13 @@ function Player (x, y, w, h) {
         }
     };
 
+    this.getMoves =
+        function () {
+      return this.moves;
+    };
+
     this.draw = function () {
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY ,this.width, this.height);
     };
 }
-
-var player = new Player(0,0,50,100);
-
-player.draw();

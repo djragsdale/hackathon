@@ -4,9 +4,9 @@
 
 
 
-function GameObject (x, y, type, move) {
-
-    this.type = type;
+function GameObject(x, y, type, move) {
+    
+    
     this.speed = 2;
     // spritesheet coords
     this.x = 26 * (type - 1);

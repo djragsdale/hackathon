@@ -20,7 +20,6 @@
 
         var canvas = document.getElementById('game');
         var context = canvas.getContext('2d');
-        var doneMoving = true;
 
         var spritesheet = new Image();
         spritesheet.src = "./img/spritesheet.png";

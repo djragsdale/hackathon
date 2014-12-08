@@ -43,8 +43,9 @@ $(function() {
         
         sampleCode += "\n\n";
         sampleCode += "for (var i = 0; i < functions.length; i++) {\n";
+        sampleCode = +"    while (waiting) { } ";
         sampleCode += "    var functionItem = functions[i];\n";
-        sampleCode += "    setTimeout(function() { functionItem(); }, 2000);\n";
+        sampleCode += "    setTimeout( functionItem(), 3000);\n";
         sampleCode += "}\n";
         
         myScript += sampleCode;
@@ -208,6 +209,15 @@ $(function() {
 
         $txtScript.val(sampleCode);
         grabFunctions();
+    });
+    
+    socket.on('new level', function (data) {
+        console.log(data);
+        alert('Congratulations, you won the level!');
+    });
+    
+    socket.on('level fail', function (data) {
+        alert('Try again?');
     });
 
     // Whenever the server emits 'sandbox', add script to sandbox

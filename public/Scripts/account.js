@@ -58,6 +58,7 @@ function LogIn(email, password) {
             txtUserInfo.innerHTML = "Not Logged In"
         }
     });
+
 }
 
 function SendResetEmail(email) {

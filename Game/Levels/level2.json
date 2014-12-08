@@ -1,0 +1,57 @@
+{
+  "id": 2,
+  "name": "Level 2",
+  "objects": [
+    {
+      "conditionId": 2,
+      "objectType": "2",
+      "x": 50,
+      "y": 100
+    },
+    {
+      "objectType": "2",
+      "x": 96,
+      "y": 140
+    },
+    {
+      "objectType": "2",
+      "x": 142,
+      "y": 160
+    },
+    {
+      "objectType": "2",
+      "x": 165,
+      "y": 160
+    },
+    {
+      "conditionId": 1,
+      "objectType": "1",
+      "x": 300,
+      "y": 137,
+      "moveable": true
+    }
+  ],
+  "gravity": 1000,
+  "width": 2000,
+  "height": 600,
+  "baseLine": 0,
+  "playerStart": { "x": 10, "y": 0 },
+  "conditions": [
+    {
+      "conditionType": "win",
+      "when": "end",
+      "objects": {
+        "0": "0",
+        "1": "1"
+      }
+    },
+    {
+      "conditionType": "fail",
+      "when": "anytime",
+      "objects": {
+        "0": "0",
+        "1": "2"
+      }
+    }
+  ]
+}

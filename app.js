@@ -16,6 +16,34 @@ server.listen(port, function () {
 });
 
 // Routing
+app.get('/win/:level/:username', function (req, res) {
+    // expect current level and username
+    var username = req.params.username;
+    var level = req.params.level;
+    console.log("User '" + username + "' just beat level " + level + ".");
+    var socketId = "";
+    if (socketIds[username]) {
+        socketId = socketIds[username];
+        io.to(socketId).emit('new level', level);
+        console.log(socketId);
+    } else {
+        console.log("User '" + username + "' failed trying to get socketId.");
+    }
+});
+app.get('/fail/:level/:username', function (data) {
+    // expect current level and username
+    var username = req.params.username;
+    var level = req.params.level;
+    console.log("User '" + username + "' just failed level " + level + ".");
+    var socketId = "";
+    if (socketIds[username]) {
+        socketId = socketIds[username];
+        io.to(socketId).emit('level fail', level);
+        console.log(socketId);
+    } else {
+        console.log("User '" + username + "' failed trying to get socketId.");
+    }
+});
 app.use(express.static(__dirname + '/public'));
 
 // What routing can I use for javascript files? Maybe /customjs?
@@ -24,6 +52,8 @@ app.use(express.static(__dirname + '/public'));
 // usernames which are currently connected to the game
 var usernames = {};
 var numUsers = 0;
+// a dictionary of socketIds and usernames
+var socketIds = {};
 
 // Grab code from the game.html file
 // Append my custom script elements
@@ -59,6 +89,8 @@ io.on('connection', function (socket) {
         usernames[username] = username;
         numUsers++;
         console.log("User " + username + " joined. There are now " + numUsers + " connected.");
+        console.log("Socket.id for user '" + username + "' is '" + socket.id + "'.");
+        socketIds[username] = socket.id;
         
         var html = sandboxTop;
         html += moreSandbox;
@@ -96,7 +128,7 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         if (DEBUG) { console.log('User disconnected.'); }
         if (DEBUG) { console.log('Deleting sandbox for user ' + socket.username + '.') }
-        var newPath = __dirname + '/public/sandbox/' + socket.username + '.html';
+        //var newPath = __dirname + '/public/sandbox/' + socket.username + '.html';
         var newPath = 'public/sandbox/' + socket.username + '.html';
         var fs = require('fs');
         fs.unlink(newPath, function (err) {

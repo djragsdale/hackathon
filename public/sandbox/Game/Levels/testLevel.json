@@ -1,0 +1,18 @@
+{
+  "id": 1,
+  "name": "Test Level",
+  "objects": [
+    {
+      "objectType": "1",
+      "x": 50,
+      "y": 100,
+      "moveable": true
+    }
+  ],
+  "gravity": 1000,
+  "width": 2000,
+  "height": 600,
+  "baseLine": 0,
+  "playerStart": { "x": 10, "y": 600 },
+  "winConditions": {}
+}

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Created by drags on 12/6/2014.
  */
 // To stop node in Windows, use Ctrl+C
@@ -16,39 +16,35 @@ server.listen(port, function () {
 });
 
 // Routing
-app.get('/customjs.js', function (req, res) {
-    var fs = require('fs');
-    var script = "";
-    //fs.open('customjs.js');
-    fs.readFile('customjs.js', "utf-8", function (err, data) {
-        if (err) throw err;
-        if (DEBUG) { console.log(data); }
-        script = data;
-    });
-    //fs.close();
-    res.send(script);
+app.get('/win/:level/:username', function (req, res) {
+    // expect current level and username
+    var username = req.params.username;
+    var level = req.params.level;
+    console.log("User '" + username + "' just beat level " + level + ".");
+    var socketId = "";
+    if (socketIds[username]) {
+        socketId = socketIds[username];
+        io.to(socketId).emit('new level', level);
+        console.log(socketId);
+    } else {
+        console.log("User '" + username + "' failed trying to get socketId.");
+    }
 });
-console.log('js route complete');
-//app.use('/sandbox', express.static(__dirname + 'public/sandbox'));
-
-//app.get('/sandbox', function (req, res) {
-    //var html = "<html><head></head><body>";
-    //html += "<span id=\"alert\">nothing</span>";
-    //html += "<canvas id=\"game\"></canvas>";
-    //html += "<script src=\"https://code.jquery.com/jquery-1.10.2.min.js\"></script>";
-    //html += "<script>";
-    //html += "function main() { document.getElementById('alert').innerText = 'test' }";
-    //html += "";
-    //html += "</script>";
-    //html += "</body></html>";
-    //res.send(html);
-//  res.send(express.static(__dirname + '/public/sandbox.html'));
-//});
+app.get('/fail/:level/:username', function (data) {
+    // expect current level and username
+    var username = req.params.username;
+    var level = req.params.level;
+    console.log("User '" + username + "' just failed level " + level + ".");
+    var socketId = "";
+    if (socketIds[username]) {
+        socketId = socketIds[username];
+        io.to(socketId).emit('level fail', level);
+        console.log(socketId);
+    } else {
+        console.log("User '" + username + "' failed trying to get socketId.");
+    }
+});
 app.use(express.static(__dirname + '/public'));
-//app.use('/', function (req, res) {
-//    res.send(express.static(__dirname + '/public'));
-//});
-//console.log('main route complete');
 
 // What routing can I use for javascript files? Maybe /customjs?
 // Then it can render the JS script text that is attached to the socket session?
@@ -56,23 +52,34 @@ app.use(express.static(__dirname + '/public'));
 // usernames which are currently connected to the game
 var usernames = {};
 var numUsers = 0;
+// a dictionary of socketIds and usernames
+var socketIds = {};
 
-var htmlTop = "<html><head></head><body>";
-htmlTop += "<span id=\"alert0\">nothing</span>";
-htmlTop += "<span id=\"alert1\">nothing</span>";
-htmlTop += "<span id=\"alert2\">nothing</span>";
-htmlTop += "<span id=\"alert3\">nothing</span>";
-htmlTop += "<canvas id=\"game\"></canvas>";
-htmlTop += "<script src=\"https://code.jquery.com/jquery-1.10.2.min.js\"></script>";
-htmlTop += "<script>";
+// Grab code from the game.html file
+// Append my custom script elements
+// Close body and html
 
-var htmlBottom = "</script>";
-htmlBottom += "</body></html>";
+var fs = require('fs');
+var sandboxTop = "";
+fs.readFile('public/game.html', function (err, data) {
+    if (err) {
+        console.log('!!! Error loading game.html.');
+        throw err;
+    }
+    sandboxTop += data;
+});
+
+var moreSandbox = "<script src=\"https://code.jquery.com/jquery-1.10.2.min.js\"></script>";
+moreSandbox += "<script>";
+
+var sandboxBottom = "</script>";
+sandboxBottom += "</body></html>";
 
 io.on('connection', function (socket) {
     var addedUser = false;
     
     socket.on('join', function () {
+        // Grab the userid here
         var haystack = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var username = "";
         for (var i = 0; i < 8; i++) {
@@ -82,9 +89,12 @@ io.on('connection', function (socket) {
         usernames[username] = username;
         numUsers++;
         console.log("User " + username + " joined. There are now " + numUsers + " connected.");
-
-        var html = htmlTop;
-        html += htmlBottom;
+        console.log("Socket.id for user '" + username + "' is '" + socket.id + "'.");
+        socketIds[username] = socket.id;
+        
+        var html = sandboxTop;
+        html += moreSandbox;
+        html += sandboxBottom;
         var fs = require('fs');
         fs.writeFile('public/sandbox/' + socket.username + '.html', html);
         if (DEBUG) { console.log('Code submitted to public/sandbox/' + socket.username + '.html'); }
@@ -93,13 +103,15 @@ io.on('connection', function (socket) {
             numUsers: numUsers
         });
     });
-
+    
     // when the client emits 'submit code', this listens and executes
     socket.on('submit code', function (data) {
-        var html = htmlTop;
+        var html = sandboxTop;
+        html += moreSandbox;
         html += data;
-        html += htmlBottom;
-
+        
+        html += sandboxBottom;
+        
         //attach script to socket
         //socket.script = data;
         // Forget thast, just write it to a freaking file.
@@ -111,9 +123,19 @@ io.on('connection', function (socket) {
             file: socket.username + '.html'
         });
     });
-
+    
     // when the user disconnects.. perform this
     socket.on('disconnect', function () {
         if (DEBUG) { console.log('User disconnected.'); }
+        if (DEBUG) { console.log('Deleting sandbox for user ' + socket.username + '.') }
+        //var newPath = __dirname + '/public/sandbox/' + socket.username + '.html';
+        var newPath = 'public/sandbox/' + socket.username + '.html';
+        var fs = require('fs');
+        fs.unlink(newPath, function (err) {
+            if (err) {
+                console.log('!!! Error deleting ' + newPath + ' sandbox for user ' + socket.username + '.');
+                console.log('!!! ' + err);
+            }
+        });
     });
 });

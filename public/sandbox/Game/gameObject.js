@@ -4,9 +4,9 @@
 
 
 
-function GameObject (x, y, type, move) {
-
-    this.type = type;
+function GameObject(x, y, type, move) {
+    
+    
     this.speed = 2;
     // spritesheet coords
     this.x = 26 * (type - 1);
@@ -18,17 +18,17 @@ function GameObject (x, y, type, move) {
     this.drawY = y;
     this.isMovable = move;
     this.held = false;
-
-    this.draw = function() {
+    
+    this.draw = function () {
         //console.log(spritesheet);
         //context.clearRect(this.drawX, this.drawY, this.width, this.height);
-        context.fillStyle = '#000000';
-        context.fillRect(this.drawX,this.drawY,this.width,this.height);
-        context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY ,this.width, this.height);
+        //context.fillStyle = '#000000';
+        //context.fillRect(this.drawX,this.drawY,this.width,this.height);
+        context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY , this.width, this.height);
         //context.drawImage(spritesheet, 30, 62, 120, 120, this.drawX, this.drawY ,this.width, this.height);
 
     };
-
+    
     this.setPosition = function (x, y) { // primarily used for player holding object
         this.drawX = x;
         this.drawY = y;
@@ -36,4 +36,3 @@ function GameObject (x, y, type, move) {
 
 
 }
-

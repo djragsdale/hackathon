@@ -6,13 +6,15 @@ var level = {};
 var levelObjectStore = [];
 var player = {};
 var conditions = [];
+var levelName = location.pathname.split('=')[1] || "";
+var userName = new RegExp(/[a-zA-Z]{8}(?= \?)/i).exec(location.path);
 //Set canvas dimensions in dom
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
 
 function init() {
     $.ajax({
-        url: "Game/Levels/level2.json",
+        url: "Game/Levels/testLevel.json",
         type: "GET",
         dataType: 'json'
     }).done(function(data) {
@@ -25,7 +27,7 @@ function init() {
         //initialize level objects into levelObjectsStore
         for(var i = 0; i < level.objects.length; i++) {
             var go = level.objects[i];
-            var newGO = new GameObject(go.x, go.y, go.objectType);
+            var newGO = new GameObject(go.x, go.y, go.objectType, go.moveable|| false);
             if(go.conditionId) {
                 newGO.condition = { type: level.conditions[go.conditionId - 1].conditionType }
             }
@@ -62,21 +64,40 @@ function update() {
         var o = levelObjectStore[i]; // temp storage for game object
 
         if (p.drawX + p.width > o.drawX && p.drawX < o.drawX + o.width) { // player has passed left edge of object
-            p.drawY = o.drawY - p.height;
-            if(o.condition) {
-                switch (o.condition.type) {
-                    case "win":
-                        p.moves = 0;
-                        win();
-                        break;
-                    case "fail":
-                        p.moves = 0;
-                        objectiveFail();
-                        break;
-                }
+            if(o.held == false && o.isMovable == false) {
+                p.drawY = o.drawY - p.height;
+                (o.condition) ? checkCondition(o.condition) : false;
+            } else {
+                (o.condition) ? checkCondition(o.condition) : false;
             }
         }
+
+        if (o.isMovable && p.drawX + p.width > o.drawX - 15 && p.drawX + p.width < o.drawX + o.width + 15) {
+            if ( p.grabbedObj ) {
+                p.setHolding(levelObjectStore[i]);
+                o.held = true;
+                o.drawY = canvas.height - p.height;
+                o.drawX = p.drawX + 5;
+                (o.condition) ? checkCondition(o.condition) : false;
+            }
+        }
+        else {
+            p.grabbedObj = false;
+        }
         p = levelObjectStore[0];
+    }
+}
+
+function checkCondition(condition) {
+    switch (condition.type) {
+        case "win":
+            p.moves = 0;
+            win();
+            break;
+        case "fail":
+            p.moves = 0;
+            objectiveFail();
+            break;
     }
 }
 
@@ -105,14 +126,38 @@ function win() {
     console.log("User won Level!");
     clearGame();
     alert("You win!");
+    $.ajax({
+        url: "/win",
+        type: "POST",
+        data: {
+            level: levelName,
+            userName: userName
+        }
+    }).done(function() {
+
+    }).fail(function() {
+
+    });
 }
 
 function objectiveFail() {
     console.log("User lost level!");
     clearGame();
     if(confirm("You failed the level! Try again?")) {
-
         init();
+    } else {
+        $.ajax({
+            url: "/fail",
+            type: "POST",
+            data: {
+                level: levelName,
+                userName: userName
+            }
+        }).done(function() {
+
+        }).fail(function() {
+
+        });
     }
 }
 

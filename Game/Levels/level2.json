@@ -27,7 +27,8 @@
       "conditionId": 1,
       "objectType": "1",
       "x": 300,
-      "y": 137
+      "y": 137,
+      "moveable": true
     }
   ],
   "gravity": 1000,

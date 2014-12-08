@@ -4,7 +4,7 @@
 
 
 
-function GameObject (x, y, type) {
+function GameObject (x, y, type, move) {
 
     this.type = type;
     this.speed = 2;
@@ -16,13 +16,14 @@ function GameObject (x, y, type) {
     // location to be drawn
     this.drawX = x;
     this.drawY = y;
-    this.isMovable = false;
+    this.isMovable = move;
+    this.held = false;
 
     this.draw = function() {
         //console.log(spritesheet);
         //context.clearRect(this.drawX, this.drawY, this.width, this.height);
-        //context.fillStyle = '#000000';
-        //context.fillRect(this.drawX,this.drawY,this.width,this.height);
+        context.fillStyle = '#000000';
+        context.fillRect(this.drawX,this.drawY,this.width,this.height);
         context.drawImage(spritesheet, this.x, this.y, this.width, this.height, this.drawX, this.drawY ,this.width, this.height);
         //context.drawImage(spritesheet, 30, 62, 120, 120, this.drawX, this.drawY ,this.width, this.height);
 

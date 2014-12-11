@@ -3,23 +3,18 @@
   "name": "Test Level",
   "objects": [
     {
-      "objectType": "2",
-      "x": 50,
-      "y": 100
-    },
-    {
       "conditionId": 1,
       "objectType": "1",
-      "x": 100,
-      "y": 100,
-      "moveable": true
+      "x": 500,
+      "y": 0,
+      "hasGravity": true
     }
   ],
   "gravity": 1000,
-  "width": 2000,
+  "width": 800,
   "height": 600,
   "baseLine": 0,
-  "playerStart": { "x": 10, "y": 600 },
+  "playerStart": { "x": 10, "y": 0 },
   "conditions": [
     {
       "conditionType": "win",

@@ -24,10 +24,7 @@ app.get('/win/:level/:username', function (req, res) {
     var socketId = "";
     if (socketIds[username]) {
         socketId = socketIds[username];
-        io.to(socketId).emit('new level', {
-            "level": level,
-            "username": username
-        });
+        io.to(socketId).emit('new level', level);
         console.log(socketId);
     } else {
         console.log("User '" + username + "' failed trying to get socketId.");
@@ -72,11 +69,9 @@ fs.readFile('public/game.html', function (err, data) {
     sandboxTop += data;
 });
 
-var moreSandbox = "<script src=\"https://code.jquery.com/jquery-1.10.2.min.js\"></script>\n";
-//moreSandbox += "<script> var runMain = function () { console.log('Running sandbox script...'); ";
+var moreSandbox = "<script src=\"https://code.jquery.com/jquery-1.10.2.min.js\"></script>";
 moreSandbox += "<script>";
 
-//var sandboxBottom = "};</script>";
 var sandboxBottom = "</script>";
 sandboxBottom += "</body></html>";
 

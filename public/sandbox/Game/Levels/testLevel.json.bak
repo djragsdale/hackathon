@@ -3,14 +3,8 @@
   "name": "Test Level",
   "objects": [
     {
-      "objectType": "2",
-      "x": 50,
-      "y": 100
-    },
-    {
-      "conditionId": 1,
       "objectType": "1",
-      "x": 100,
+      "x": 50,
       "y": 100,
       "moveable": true
     }
@@ -20,15 +14,5 @@
   "height": 600,
   "baseLine": 0,
   "playerStart": { "x": 10, "y": 600 },
-  "conditions": [
-    {
-      "conditionType": "win",
-      "when": "end",
-      "objects": {
-        "0": "0",
-        "1": "1"
-      }
-    }
-  ]
+  "winConditions": {}
 }
-

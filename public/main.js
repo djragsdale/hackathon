@@ -38,15 +38,23 @@ $(function() {
         var functionItems = functionList.getElementsByTagName("li");
         for (var i = 0; i < functionItems.length; i++) {
             sampleCode += "\n";
-            sampleCode += "functions.push(" + functionItems[i].innerText + ");";
+            sampleCode += "functions.push(" + functionItems[i].innerText.substring(0, functionItems[i].innerText.length-2) + ");";
         }
         
         sampleCode += "\n\n";
-        sampleCode += "for (var i = 0; i < functions.length; i++) {\n";
-        sampleCode = +"    while (waiting) { } ";
-        sampleCode += "    var functionItem = functions[i];\n";
-        sampleCode += "    setTimeout( functionItem(), 3000);\n";
-        sampleCode += "}\n";
+        //sampleCode += "for (var i = 0; i < functions.length; i++) {\n";
+        sampleCode += "var idx = 0;\n";
+        sampleCode += "$(document).on('nextFunction', function() {\n";
+        sampleCode += "    if (idx < functions.length) {\n";
+        sampleCode += "        var functionItem = functions[idx];\n";
+        sampleCode += "        functionItem();\n";
+        sampleCode += "        idx++;\n";
+        sampleCode += "    }\n";
+        sampleCode += "});";
+        //sampleCode += "    var functionItem = functions[i];\n";
+        //sampleCode += "    functionItem();\n";
+        //sampleCode += "    setTimeout( functionItem(), 3000);\n";
+        //sampleCode += "}\n";
         
         myScript += sampleCode;
         
@@ -167,7 +175,8 @@ $(function() {
         if (DEBUG) { console.log(functions) }
         $functionList.html('');
         for (var i = 0; i < functions.length; i++) {
-            $functionList.append('<li>' + functions[i] + '()</li>');
+            $functionList.append('<li class="list-group-item">' + functions[i] + '()</li>');
+            //$functionList.append('<li>' + functions[i] + '</li>');
         }
     }
 
@@ -186,25 +195,36 @@ $(function() {
         grabFunctions();
     });
     
+    
+    // Auth events
+    function reactivate() {
+
+    }
+    
+    function deactivate() {
+        //$('#hider');
+    }
+    
 
     // Socket events
     
+    // It should only do this after logged in
+    // Everything should be inactivated until login occurs
     socket.emit('join');
     
     socket.on('joined', function (data) {
         alert('You have joined!');
-        $('#sandbox').attr('src', 'sandbox/' + data.file);
-        var sampleCode = "function drawBlackRect () {\n";
-        sampleCode += "    var canvas = document.getElementById('game');";
-        sampleCode += "    canvas.style.border = \"thick solid #000000\";\n";
+        // Now that it has joined, everything should be re-activated for use
+        var theLevel = "level1";
+        $('#sandbox').attr('src', 'sandbox/' + data.file + "?l=" + theLevel);
+        var sampleCode = "function function2 () {\n";
+        sampleCode += "    player.move(-30);\n";
         sampleCode += "}\n\n";
-        sampleCode += "function drawRedRect () {\n";
-        sampleCode += "    var canvas = document.getElementById('game');";
-        sampleCode += "    canvas.style.border = \"thick solid #FF0000\";\n";
+        sampleCode += "function function1 () {\n";
+        sampleCode += "    player.move(40);\n";
         sampleCode += "}\n\n";
-        sampleCode += "function drawBlueRect () {\n";
-        sampleCode += "    var canvas = document.getElementById('game');";
-        sampleCode += "    canvas.style.border = \"thick solid #0000FF\";\n";
+        sampleCode += "function function3 () {\n";
+        sampleCode += "    player.move(240);\n";
         sampleCode += "}\n\n";
 
         $txtScript.val(sampleCode);
@@ -213,11 +233,26 @@ $(function() {
     
     socket.on('new level', function (data) {
         console.log(data);
-        alert('Congratulations, you won the level!');
+        //alert('Congratulations, you won the level!');
+        var levelName = data.level.substring(5, 6);
+        console.log(levelName);
+        console.log('1');
+        var level = 1;
+        if (levelName == "1") {
+            console.log("loading level 2");
+            level = 2;
+        } else if (levelName == "2") {
+            console.log("loading level 3");
+            level = 3;
+        }
+        
+        $('#sandbox').attr('src', 'sandbox/' + data.username + ".html?l=level" + level);
     });
     
     socket.on('level fail', function (data) {
-        alert('Try again?');
+        //alert('Try again?');
+        
+        $('#sandbox').attr('src', 'sandbox/' + data.file + "?l=level1");
     });
 
     // Whenever the server emits 'sandbox', add script to sandbox
